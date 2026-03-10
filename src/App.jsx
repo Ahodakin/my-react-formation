@@ -1,33 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+// Composant principal de l'application
 function App() {
-  const [count, setCount] = useState(0)
+
+  // Objet représentant les informations d'un utilisateur
+  const user = {
+    name: "Reine",
+    email: "reine@gmail.com",
+    age: 30,
+    hobbies: ["Lecture", "coder", "Musique"],
+  };
+
+  // Fonction qui retourne un style CSS en fonction de l'âge
+  const getAgeStyle = (age) => {
+
+    // Si l'âge est inférieur à 18 → fond rouge
+    if (age < 18) {
+      return { background: "red"  }
+
+    // Si l'âge est supérieur à 25 → fond bleu
+    } else if (age > 25) {
+      return { background: "blue" }
+
+    // Sinon (entre 18 et 25) → fond gris
+    } else {
+      return { background: "gray" }
+    }
+
+  }
 
   return (
     <>
+      {/* Titre de la carte */}
+      <h1>Carte d'utilisateur</h1>
+
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+
+        {/* Application du style dynamique selon l'âge */}
+        <div style={getAgeStyle(user.age)}>
+
+          {/* Affichage des informations utilisateur */}
+          <div>{user.name}</div>
+          <div>{user.email}</div>
+          <div>{user.age}</div>
+
+          {/* Liste des hobbies */}
+          <ul>
+            {user.hobbies.map((hobby, index) => (
+              <li key={index}>{hobby}</li>
+            ))}
+          </ul>
+
+        </div>
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
